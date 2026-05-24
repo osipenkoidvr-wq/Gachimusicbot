@@ -42,11 +42,11 @@ class UserStates(StatesGroup):
 def build_progress_bar(current: int, maximum: int, length: int = 20) -> str:
     """Строит текстовый прогресс-бар."""
     if maximum == 0:
-        return "🔲" * length
+        return "░" * length
     filled = int(length * current / maximum)
     empty = length - filled
     percent = int(100 * current / maximum)
-    bar = "🪙" * filled + "🔲" * empty
+    bar = "💰" * filled + "░" * empty
     return f"{bar} {percent}%"
 
 
