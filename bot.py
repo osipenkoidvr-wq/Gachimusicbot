@@ -42,11 +42,11 @@ class UserStates(StatesGroup):
 def build_progress_bar(current: int, maximum: int, length: int = 20) -> str:
     """Строит текстовый прогресс-бар."""
     if maximum == 0:
-        return "░" * length
+        return "⬜" * length
     filled = int(length * current / maximum)
     empty = length - filled
     percent = int(100 * current / maximum)
-    bar = "█" * filled + "░" * empty
+    bar = "🥮" * filled + "⬜" * empty
     return f"{bar} {percent}%"
 
 
@@ -92,7 +92,8 @@ def register_handlers(dp: Dispatcher, db: Database):
 
         text = (
             f"🎵 Добро пожаловать, {name}!\n\n"
-            f"Это Music Playlist Bot — твой персональный музыкальный плейлист прямо в Telegram.\n\n"
+            f"Это GachiParty Music — твой помощник в повышении шансов на победу в Покер турнире!.\n\n"
+            f"Добавь песни для поднятия моджо, и в нужный момент тузик дойдет 🂡.\n\n"
             f"📊 Твой плейлист: {count}/{limit} песен\n"
             f"{bar}\n\n"
             f"Используй кнопки ниже для управления плейлистом 👇"
