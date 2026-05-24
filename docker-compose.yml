@@ -1,0 +1,50 @@
+# Music Playlist Bot — docker-compose.yml
+# Версия для Synology NAS (DSM 7.x)
+
+version: "3.8"
+
+services:
+  music-playlist-bot:
+    # Имя контейнера
+    container_name: music-playlist-bot
+
+    # Сборка из Dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    # Политика перезапуска
+    restart: unless-stopped
+
+    # Переменные окружения
+    environment:
+      - BOT_TOKEN=${BOT_TOKEN}
+      - ADMIN_IDS=${ADMIN_IDS}
+      - TZ=Europe/Moscow
+
+    # Монтирование папки с базой данных
+    # ИЗМЕНИТЕ левую часть на путь на вашем NAS
+    volumes:
+      - /volume1/docker/music-playlist-bot/data:/app/data
+
+    # Лимит ресурсов (опционально)
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+
+    # Логи
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+    # Проверка работоспособности
+    healthcheck:
+      test: ["CMD", "python", "-c", "import aiogram; print('ok')"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
